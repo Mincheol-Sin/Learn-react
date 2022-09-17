@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Button, Navbar, Container, Nav } from "react-bootstrap";
 import "./App.css";
 import data from "./data.js";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Detail from "./pages/Detail";
 import Card from "./components/Card";
+import axios from "axios";
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
 
   return (
@@ -47,6 +48,21 @@ function App() {
                   })}
                 </div>
               </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get("https://codingapple1.github.io/shop/data2.json")
+                    .then((result) => {
+                      let copy = [...shoes, ...result.data];
+                      setShoes(copy);
+                    })
+                    .catch(() => {
+                      console.log("실패함ㅅㄱ");
+                    });
+                }}
+              >
+                더보기
+              </button>
             </>
           }
         />
