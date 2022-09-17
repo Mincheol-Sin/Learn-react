@@ -7,6 +7,7 @@ const Detail = (props) => {
   let 찾은상품 = props.shoes.find((x) => x.id == id);
   let [alert, setAlert] = useState(true);
   let [탭, 탭변경] = useState(0);
+  let [fade2, setFade2] = useState("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -14,8 +15,18 @@ const Detail = (props) => {
     }, 2000);
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setFade2("end");
+    }, 100);
+
+    return () => {
+      setFade2("");
+    };
+  }, []);
+
   return (
-    <div className="container">
+    <div className={`container start ${fade2}`}>
       {alert == true ? (
         <div className="alert alert-warning">2초이내 구매시 할인</div>
       ) : null}
@@ -72,7 +83,23 @@ const Detail = (props) => {
 };
 
 const TabContent = ({ 탭 }) => {
-  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭];
+  let [fade, setFade] = useState("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+
+    return () => {
+      setFade("");
+    };
+  }, [탭]);
+
+  return (
+    <div className={`start ${fade}`}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+    </div>
+  );
 };
 
 export default Detail;
