@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import "./App.css";
 import data from "./data.js";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Detail from "./pages/Detail";
 import Card from "./components/Card";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Cart from "./pages/Cart";
 
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify([]));
+  }, []);
 
   return (
     <div className="App">
@@ -40,6 +44,7 @@ function App() {
               cart
             </Nav.Link>
           </Nav>
+          <Nav className="ms-auto">반가워요 kim</Nav>
         </Container>
       </Navbar>
 
